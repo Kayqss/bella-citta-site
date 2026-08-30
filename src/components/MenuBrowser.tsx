@@ -37,12 +37,12 @@ export function MenuBrowser({
         apenas uma filial.
       </p>
 
-      <div className="mt-6 flex flex-wrap gap-2">
+      <div className="mt-6 -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:thin]">
         {categorias.map((c) => (
           <button
             key={c}
             onClick={() => setAtiva(c)}
-            className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+            className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
               c === ativa
                 ? "border-transparent bg-primary text-primary-foreground"
                 : "border-border text-muted-foreground hover:bg-secondary"
