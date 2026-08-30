@@ -151,12 +151,11 @@ function Index() {
                   href={`https://wa.me/${u.whatsapp}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-between gap-3 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90"
                 >
                   <span className="inline-flex items-center gap-2">
                     <WhatsAppIcon size={18} /> {u.nome}
                   </span>
-                  <span className="font-semibold">{u.telefone}</span>
                 </a>
               ))}
             </div>
