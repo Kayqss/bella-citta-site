@@ -171,3 +171,24 @@
 @utility gradient-warm {
   background-image: var(--gradient-warm);
 }
+
+@utility surface-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  }
+
+@utility gradient-warm {
+  background-image: var(--gradient-warm);
+}
+
+/* Esconde a barra de scroll, mas mantém o scroll funcionando */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

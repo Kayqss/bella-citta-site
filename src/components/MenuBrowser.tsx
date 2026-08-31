@@ -34,14 +34,12 @@ export function MenuBrowser({
       )}
 
       <p className="mt-5 rounded-xl border border-accent/50 bg-accent/15 p-3 text-sm">
-        Cardápio digital informativo. O pedido é enviado para o WhatsApp desta unidade
-        e só é confirmado por lá. Cada pedido pode conter itens de
-        apenas uma filial. Entregas disponíveis apenas para a linha de encomendas
+        Cardápio digital informativo. Entregas disponíveis apenas para a linha de encomendas
         (salgados, mini lanches, wraps, tábuas, baguetes, doces e bolos) — valores
         com taxa de entrega à parte.
       </p>
 
-      <div className="mt-6 -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:thin]">
+      <div className="mt-6 -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {categorias.map((c) => (
           <button
             key={c}

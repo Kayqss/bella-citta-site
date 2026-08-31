@@ -24,27 +24,34 @@ export function SiteHeader() {
       setSolid(true);
       return;
     }
+
     const update = () =>
       setSolid(window.scrollY > window.innerHeight - 200);
+
     update();
+
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
+
     return () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
   }, [isHome]);
 
-  // Cores dos elementos conforme o cabeçalho está sobre o hero (transparente) ou sólido
+  // Cores dos elementos conforme o cabeçalho está sobre o hero
+  // (transparente) ou sólido
   const iconBtn = solid
     ? "grid h-10 w-10 place-items-center rounded-full border border-border text-primary transition-colors hover:bg-secondary"
     : "grid h-10 w-10 place-items-center rounded-full border border-background/50 text-background transition-colors hover:bg-background/10";
 
   const navBase =
     "inline-flex rounded-full border px-4 py-2 text-sm font-semibold transition-colors";
+
   const navIdle = solid
     ? `${navBase} border-border text-muted-foreground hover:bg-secondary`
     : `${navBase} border-background/40 text-background/90 hover:bg-background/10`;
+
   const navActive = solid
     ? `${navBase} border-transparent bg-primary text-primary-foreground`
     : `${navBase} border-transparent bg-background text-foreground`;
@@ -68,6 +75,7 @@ export function SiteHeader() {
             className="h-14 w-14 shrink-0 sm:h-16 sm:w-16"
           />
         </Link>
+
         <div className="flex shrink-0 items-center gap-2">
           <a
             href={INSTAGRAM}
@@ -78,6 +86,7 @@ export function SiteHeader() {
           >
             <Instagram size={18} />
           </a>
+
           <a
             href={FACEBOOK}
             target="_blank"
@@ -87,12 +96,14 @@ export function SiteHeader() {
           >
             <Facebook size={18} />
           </a>
+
           <button
             onClick={() => setOpen(true)}
             aria-label="Abrir carrinho"
             className="relative grid h-10 w-10 place-items-center rounded-full bg-primary text-primary-foreground transition-opacity hover:opacity-90"
           >
             <ShoppingBag size={18} />
+
             {count > 0 && (
               <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-accent px-1 text-[11px] font-bold text-accent-foreground">
                 {count}
@@ -101,11 +112,16 @@ export function SiteHeader() {
           </button>
         </div>
       </div>
-      <nav className="mx-auto max-w-6xl overflow-x-auto px-4 pb-3">
+
+      {/* Navegação horizontal sem indicador de scroll */}
+      <nav className="scrollbar-hide mx-auto max-w-6xl overflow-x-auto px-4 pb-3">
         <ul className="flex gap-2 whitespace-nowrap">
           {TABS.map((t) => (
             <li key={t.to}>
-              <Link to={t.to} className={isActive(t.to) ? navActive : navIdle}>
+              <Link
+                to={t.to}
+                className={isActive(t.to) ? navActive : navIdle}
+              >
                 {t.label}
               </Link>
             </li>
