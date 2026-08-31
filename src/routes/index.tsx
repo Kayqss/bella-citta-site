@@ -70,8 +70,9 @@ function Index() {
   return (
     <div>
       <section
-        className="relative isolate flex min-h-[calc(100svh-var(--header-h,139px))] flex-col items-center justify-center overflow-hidden"
+        className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden"
         style={{
+          marginTop: "calc(-1 * var(--header-h, 139px))",
           backgroundImage: `url(${Fachada})`,
           backgroundSize: "cover",
           backgroundPosition: "center",

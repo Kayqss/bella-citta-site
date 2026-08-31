@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plus, MapPin } from "lucide-react";
-import { brl, FILIAIS, type FilialKey } from "@/data/menu";
+import { brl, FILIAIS, CATEGORIAS_ENTREGA, NOTAS_CATEGORIA, type FilialKey } from "@/data/menu";
 import { useCart } from "@/lib/cart";
 
 export function MenuBrowser({
@@ -20,6 +20,8 @@ export function MenuBrowser({
   const endereco = FILIAIS[filial].endereco;
 
   const itens = menu[ativa] ?? [];
+  const categoriaEntrega = CATEGORIAS_ENTREGA.has(ativa);
+  const notaCategoria = NOTAS_CATEGORIA[ativa];
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -34,7 +36,9 @@ export function MenuBrowser({
       <p className="mt-5 rounded-xl border border-accent/50 bg-accent/15 p-3 text-sm">
         Cardápio digital informativo. O pedido é enviado para o WhatsApp desta unidade
         e só é confirmado por lá. Cada pedido pode conter itens de
-        apenas uma filial.
+        apenas uma filial. Entregas disponíveis apenas para a linha de encomendas
+        (salgados, mini lanches, wraps, tábuas, baguetes, doces e bolos) — valores
+        com taxa de entrega à parte.
       </p>
 
       <div className="mt-6 -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:thin]">
@@ -42,16 +46,21 @@ export function MenuBrowser({
           <button
             key={c}
             onClick={() => setAtiva(c)}
-            className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-              c === ativa
+            className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${c === ativa
                 ? "border-transparent bg-primary text-primary-foreground"
                 : "border-border text-muted-foreground hover:bg-secondary"
-            }`}
+              }`}
           >
             {c} ({(menu[c] ?? []).length})
           </button>
         ))}
       </div>
+
+      {notaCategoria && (
+        <p className="mt-4 rounded-xl border border-border bg-secondary/60 p-3 text-sm text-secondary-foreground">
+          {notaCategoria}
+        </p>
+      )}
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {itens.map((i) => (
@@ -61,16 +70,29 @@ export function MenuBrowser({
               {i.obs && <p className="mt-1 text-sm text-muted-foreground">{i.obs}</p>}
             </div>
             <div className="mt-4 flex items-center justify-between gap-3">
-              <span className="text-lg font-bold text-primary">{brl(i.preco)}</span>
-              <button
-                onClick={() => {
-                  add(i.nome, i.preco, filial);
-                  setOpen(true);
-                }}
-                className="inline-flex shrink-0 items-center gap-1 rounded-full bg-primary px-3 py-2 text-xs font-bold text-primary-foreground transition-opacity hover:opacity-90"
-              >
-                <Plus size={14} /> Adicionar
-              </button>
+              <div>
+                <span className="text-lg font-bold text-primary">{brl(i.preco)}</span>
+                {categoriaEntrega && (
+                  <span className="block text-xs font-medium text-muted-foreground">
+                    + taxa de entrega
+                  </span>
+                )}
+              </div>
+              {categoriaEntrega ? (
+                <button
+                  onClick={() => {
+                    add(i.nome, i.preco, filial);
+                    setOpen(true);
+                  }}
+                  className="inline-flex shrink-0 items-center gap-1 rounded-full bg-primary px-3 py-2 text-xs font-bold text-primary-foreground transition-opacity hover:opacity-90"
+                >
+                  <Plus size={14} /> Adicionar
+                </button>
+              ) : (
+                <span className="shrink-0 rounded-full bg-secondary px-3 py-2 text-xs font-semibold text-secondary-foreground">
+                  Somente na loja
+                </span>
+              )}
             </div>
           </article>
         ))}

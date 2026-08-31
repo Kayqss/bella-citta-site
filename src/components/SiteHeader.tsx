@@ -1,4 +1,5 @@
-import { Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "@tanstack/react-router";
 import { ShoppingBag, Instagram, Facebook } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { useCart } from "@/lib/cart";
@@ -13,9 +14,52 @@ const TABS = [
 
 export function SiteHeader() {
   const { count, setOpen } = useCart();
+  const pathname = useLocation({ select: (l) => l.pathname });
+  const isHome = pathname === "/";
+
+  const [solid, setSolid] = useState(!isHome);
+
+  useEffect(() => {
+    if (!isHome) {
+      setSolid(true);
+      return;
+    }
+    const update = () =>
+      setSolid(window.scrollY > window.innerHeight - 200);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [isHome]);
+
+  // Cores dos elementos conforme o cabeçalho está sobre o hero (transparente) ou sólido
+  const iconBtn = solid
+    ? "grid h-10 w-10 place-items-center rounded-full border border-border text-primary transition-colors hover:bg-secondary"
+    : "grid h-10 w-10 place-items-center rounded-full border border-background/50 text-background transition-colors hover:bg-background/10";
+
+  const navBase =
+    "inline-flex rounded-full border px-4 py-2 text-sm font-semibold transition-colors";
+  const navIdle = solid
+    ? `${navBase} border-border text-muted-foreground hover:bg-secondary`
+    : `${navBase} border-background/40 text-background/90 hover:bg-background/10`;
+  const navActive = solid
+    ? `${navBase} border-transparent bg-primary text-primary-foreground`
+    : `${navBase} border-transparent bg-background text-foreground`;
+
+  const isActive = (to: string) =>
+    to === "/" ? pathname === "/" : pathname.startsWith(to);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
+    <header
+      className={`sticky top-0 z-40 backdrop-blur-md transition-colors ${
+        solid
+          ? "border-b border-border bg-background/90"
+          : "border-b border-transparent bg-transparent"
+      }`}
+    >
       <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3">
         <Link to="/" className="flex min-w-0 items-center">
           <img
@@ -30,7 +74,7 @@ export function SiteHeader() {
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram @bellacittarp"
-            className="grid h-10 w-10 place-items-center rounded-full border border-border text-primary transition-colors hover:bg-secondary"
+            className={iconBtn}
           >
             <Instagram size={18} />
           </a>
@@ -39,7 +83,7 @@ export function SiteHeader() {
             target="_blank"
             rel="noreferrer"
             aria-label="Facebook Bella Citta"
-            className="grid h-10 w-10 place-items-center rounded-full border border-border text-primary transition-colors hover:bg-secondary"
+            className={iconBtn}
           >
             <Facebook size={18} />
           </a>
@@ -61,15 +105,7 @@ export function SiteHeader() {
         <ul className="flex gap-2 whitespace-nowrap">
           {TABS.map((t) => (
             <li key={t.to}>
-              <Link
-                to={t.to}
-                activeOptions={{ exact: t.to === "/" }}
-                className="inline-flex rounded-full border border-border px-4 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-secondary"
-                activeProps={{
-                  className:
-                    "inline-flex rounded-full border border-transparent bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground",
-                }}
-              >
+              <Link to={t.to} className={isActive(t.to) ? navActive : navIdle}>
                 {t.label}
               </Link>
             </li>

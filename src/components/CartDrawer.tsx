@@ -80,6 +80,7 @@ export function CartDrawer() {
           <p className="rounded-lg bg-secondary p-3 text-xs text-secondary-foreground">
             Este site é um cardápio digital informativo. O fechamento e a confirmação do pedido
             acontecem exclusivamente pelo WhatsApp — nenhum pagamento é feito aqui.
+            Para entregas, o valor final acresce a taxa de entrega.
           </p>
           <a
             href={buildWhatsAppLink(lines, subtotal, filial)}
