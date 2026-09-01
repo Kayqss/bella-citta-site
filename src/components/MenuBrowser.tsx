@@ -39,15 +39,16 @@ export function MenuBrowser({
         com taxa de entrega à parte.
       </p>
 
-      <div className="mt-6 -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="mt-6 -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:thin]">
         {categorias.map((c) => (
           <button
             key={c}
             onClick={() => setAtiva(c)}
-            className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${c === ativa
+            className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+              c === ativa
                 ? "border-transparent bg-primary text-primary-foreground"
                 : "border-border text-muted-foreground hover:bg-secondary"
-              }`}
+            }`}
           >
             {c} ({(menu[c] ?? []).length})
           </button>
