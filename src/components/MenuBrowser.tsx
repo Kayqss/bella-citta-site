@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { Plus, MapPin } from "lucide-react";
-import { brl, FILIAIS, CATEGORIAS_ENTREGA, NOTAS_CATEGORIA, type FilialKey } from "@/data/menu";
+import {
+  brl,
+  FILIAIS,
+  CATEGORIAS_ENTREGA,
+  NOTAS_CATEGORIA,
+  PRECIFICACAO,
+  type FilialKey,
+} from "@/data/menu";
 import { useCart } from "@/lib/cart";
+
 
 export function MenuBrowser({
   titulo,
@@ -22,6 +30,8 @@ export function MenuBrowser({
   const itens = menu[ativa] ?? [];
   const categoriaEntrega = CATEGORIAS_ENTREGA.has(ativa);
   const notaCategoria = NOTAS_CATEGORIA[ativa];
+  const precificacao = PRECIFICACAO[ativa];
+
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -34,7 +44,8 @@ export function MenuBrowser({
       )}
 
       <p className="mt-5 rounded-xl border border-accent/50 bg-accent/15 p-3 text-sm">
-        Cardápio digital informativo. Entregas disponíveis apenas para a linha de encomendas
+        Cardápio digital informativo. O pedido é enviado para o WhatsApp desta unidade
+        e só é confirmado por lá. Entregas disponíveis apenas para a linha de encomendas
         (salgados, mini lanches, wraps, tábuas, baguetes, doces e bolos) — valores
         com taxa de entrega à parte.
       </p>
@@ -70,7 +81,19 @@ export function MenuBrowser({
             </div>
             <div className="mt-4 flex items-center justify-between gap-3">
               <div>
-                <span className="text-lg font-bold text-primary">{brl(i.preco)}</span>
+                <span className="text-lg font-bold text-primary">
+                  {brl(i.preco)}
+                  {precificacao && (
+                    <span className="ml-1 text-sm font-semibold text-foreground">
+                      {precificacao.sufixo}
+                    </span>
+                  )}
+                </span>
+                {precificacao && (
+                  <span className="block text-xs font-medium text-muted-foreground">
+                    Consulte valores para outras quantidades
+                  </span>
+                )}
                 {categoriaEntrega && (
                   <span className="block text-xs font-medium text-muted-foreground">
                     + taxa de entrega
@@ -80,7 +103,13 @@ export function MenuBrowser({
               {categoriaEntrega ? (
                 <button
                   onClick={() => {
-                    add(i.nome, i.preco, filial);
+                    add(
+                      i.nome,
+                      i.preco,
+                      filial,
+                      precificacao?.tipo ?? "fixo",
+                      precificacao?.padrao,
+                    );
                     setOpen(true);
                   }}
                   className="inline-flex shrink-0 items-center gap-1 rounded-full bg-primary px-3 py-2 text-xs font-bold text-primary-foreground transition-opacity hover:opacity-90"
@@ -93,6 +122,7 @@ export function MenuBrowser({
                 </span>
               )}
             </div>
+
           </article>
         ))}
       </div>

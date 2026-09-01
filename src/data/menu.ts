@@ -362,13 +362,91 @@ export const CATEGORIAS_ENTREGA = new Set([
   "Bolos Confeitados (Valor por kg)",
 ]);
 
+// Produtos vendidos por cento / por peso: o preço final é confirmado pela padaria.
+export type Precificacao = {
+  tipo: "cento" | "kg";
+  sufixo: string; // exibido ao lado do preço
+  padrao: number; // quantidade inicial sugerida
+  passo: number;
+  minimo: number;
+  unidade: string; // "un" | "g"
+};
+
+export const PRECIFICACAO: Record<string, Precificacao> = {
+  "Mini Salgados Fritos (Cento / Mín. 25 un)": {
+    tipo: "cento",
+    sufixo: "o cento",
+    padrao: 25,
+    passo: 5,
+    minimo: 25,
+    unidade: "un",
+  },
+  "Mini Salgados Folhados e Quiches (Cento / Mín. 25 un)": {
+    tipo: "cento",
+    sufixo: "o cento",
+    padrao: 25,
+    passo: 5,
+    minimo: 25,
+    unidade: "un",
+  },
+  "Mini Salgados Assados (Cento / Mín. 25 un)": {
+    tipo: "cento",
+    sufixo: "o cento",
+    padrao: 25,
+    passo: 5,
+    minimo: 25,
+    unidade: "un",
+  },
+  "Mini Doces (50 unidades)": {
+    tipo: "cento",
+    sufixo: "as 50 unidades",
+    padrao: 25,
+    passo: 5,
+    minimo: 25,
+    unidade: "un",
+  },
+  "Bolos Confeitados (Valor por kg)": {
+    tipo: "kg",
+    sufixo: "por kg",
+    padrao: 1000,
+    passo: 250,
+    minimo: 500,
+    unidade: "g",
+  },
+};
+
+export const formatarQuantidade = (tipo: "cento" | "kg" | "fixo", valor: number) => {
+  if (tipo === "kg") {
+    return valor >= 1000
+      ? `${(valor / 1000).toLocaleString("pt-BR", { maximumFractionDigits: 2 })} kg`
+      : `${valor} g`;
+  }
+  if (tipo === "cento") return `${valor} unidades`;
+  return `${valor}x`;
+};
+
 export const NOTAS_CATEGORIA: Record<string, string> = {
+  "Hambúrgueres e Frango": "Caso deseje trocar o pão, informe a atendente.",
+  "Filé Bovino e Pastéis":
+    "Caso deseje trocar o pão, informe a atendente. Pastéis de feira fritos na hora.",
+  "Pratos Executivos": "Todos os pratos (exceto Caesar Salad) acompanham salada.",
+  "Mini Salgados Fritos (Cento / Mín. 25 un)":
+    "Preço referente ao cento. Você pode pedir quantidades menores (mín. 25 un por sabor) — consulte os valores pelo WhatsApp.",
+  "Mini Salgados Folhados e Quiches (Cento / Mín. 25 un)":
+    "Preço referente ao cento. Você pode pedir quantidades menores (mín. 25 un por sabor) — consulte os valores pelo WhatsApp.",
+  "Mini Salgados Assados (Cento / Mín. 25 un)":
+    "Preço referente ao cento. Você pode pedir quantidades menores (mín. 25 un por sabor) — consulte os valores pelo WhatsApp.",
+  "Mini Doces (50 unidades)":
+    "Preço referente a 50 unidades. Outras quantidades têm valores diferentes — confirmamos pelo WhatsApp.",
+  "Bolos Confeitados (Valor por kg)":
+    "Preço por quilo. Você pode pedir 500 g, 750 g, 1 kg, 1,5 kg etc. — o valor final é confirmado pelo WhatsApp.",
   "Mini Lanches e Wraps (Unidade / Mín. 25 un)":
     "Pedido mínimo de 25 unidades por sabor. Consultar valor de acréscimo com salada. Wraps: todos os lanches possuem alface e cenoura.",
   "Tábuas de Frios":
     "Pedido mínimo de 25 unidades por sabor. Queijos: prato, mussarela, provolone e gorgonzola. Embutidos: salame hamburguês, salame italiano, copa, peito de peru e lombo canadense.",
   "Baguetes de 1 Metro": "Rende em média 25 fatias cada pão.",
 };
+
 
 export const brl = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
