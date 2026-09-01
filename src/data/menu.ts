@@ -210,7 +210,7 @@ const executivosSeixas: Item[] = [
 ];
 
 export const MENU_GUAPORE: Menu = {
-  "Cafés Especiais": cafes,
+  "Cafés e Chás": cafes,
   "Momento Fit": fit,
   Refrescante: [...refrescanteBase, milkShake, acaiTigela],
   "Lanches Matinais": [...matinaisBase, paoMortadelaCeratti, ...matinaisFim],
@@ -221,7 +221,7 @@ export const MENU_GUAPORE: Menu = {
 };
 
 export const MENU_PORTUGAL: Menu = {
-  "Cafés Especiais": cafes,
+  "Cafés e Chás": cafes,
   "Momento Fit": fit,
   Refrescante: [...refrescanteBase, milkShake, acaiTigela],
   "Lanches Matinais": [...matinaisBase, paoMortadelaCeratti, ...matinaisFim],
@@ -232,7 +232,7 @@ export const MENU_PORTUGAL: Menu = {
 };
 
 export const MENU_SEIXAS: Menu = {
-  "Cafés Especiais": cafes,
+  "Cafés e Chás": cafes,
   "Momento Fit": fit,
   Refrescante: [...refrescanteBase, acaiTigela],
   "Lanches Matinais": [...matinaisBase, ...matinaisFim],
