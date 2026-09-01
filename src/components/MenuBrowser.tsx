@@ -70,7 +70,7 @@ export function MenuBrowser({
       </div>
 
       {notaCategoria && (
-        <p className="mt-4 rounded-xl border border-border bg-secondary/60 p-3 text-sm text-secondary-foreground">
+        <p className="mt-5 rounded-xl border border-accent/50 bg-accent/15 p-3 text-sm">
           {notaCategoria}
         </p>
       )}

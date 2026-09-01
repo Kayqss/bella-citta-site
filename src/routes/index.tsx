@@ -168,7 +168,7 @@ function Index() {
               <li>2. Adicione os itens ao carrinho e ajuste as quantidades.</li>
               <li>3. Envie o resumo pelo WhatsApp da própria filial para confirmar.</li>
             </ol>
-            <p className="mt-4 rounded-xl border border-accent/50 bg-accent/15 p-3 text-sm">
+            <p className="mt-5 rounded-xl border border-accent/50 bg-accent/15 p-3 text-sm">
               Nenhum pagamento é feito no site: o fechamento e a confirmação do pedido acontecem
               exclusivamente pelo WhatsApp.
             </p>
