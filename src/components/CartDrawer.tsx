@@ -137,7 +137,7 @@ export function CartDrawer() {
             <span className="text-xl font-bold">{brl(subtotal)}</span>
           </div>
           {temAConfirmar && (
-            <p className="text-xs font-semibold text-muted-foreground">
+            <p className="rounded-lg bg-secondary p-3 text-xs text-secondary-foreground">
               Itens vendidos por cento ou por peso têm o valor confirmado pela padaria no
               WhatsApp, conforme a quantidade solicitada.
             </p>
@@ -153,9 +153,8 @@ export function CartDrawer() {
             target="_blank"
             rel="noreferrer"
             aria-disabled={lines.length === 0}
-            className={`flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-primary-foreground transition-opacity gradient-warm ${
-              lines.length === 0 ? "pointer-events-none opacity-50" : "hover:opacity-90"
-            }`}
+            className={`flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-primary-foreground transition-opacity gradient-warm ${lines.length === 0 ? "pointer-events-none opacity-50" : "hover:opacity-90"
+              }`}
           >
             <WhatsAppIcon /> Enviar pedido pelo WhatsApp
           </a>

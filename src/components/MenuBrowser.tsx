@@ -38,8 +38,9 @@ export function MenuBrowser({
       <h1 className="text-3xl font-bold sm:text-4xl">{titulo}</h1>
       {subtitulo && <p className="mt-2 text-muted-foreground">{subtitulo}</p>}
       {endereco && (
-        <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground">
-          <MapPin size={15} /> {endereco}
+        <p className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
+          <MapPin size={15} />
+          {endereco}
         </p>
       )}
 
@@ -55,11 +56,10 @@ export function MenuBrowser({
           <button
             key={c}
             onClick={() => setAtiva(c)}
-            className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-              c === ativa
+            className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${c === ativa
                 ? "border-transparent bg-primary text-primary-foreground"
                 : "border-border text-muted-foreground hover:bg-secondary"
-            }`}
+              }`}
           >
             {c} ({(menu[c] ?? []).length})
           </button>
