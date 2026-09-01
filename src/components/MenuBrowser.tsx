@@ -10,7 +10,6 @@ import {
 } from "@/data/menu";
 import { useCart } from "@/lib/cart";
 
-
 export function MenuBrowser({
   titulo,
   subtitulo,
@@ -32,16 +31,19 @@ export function MenuBrowser({
   const notaCategoria = NOTAS_CATEGORIA[ativa];
   const precificacao = PRECIFICACAO[ativa];
 
-
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="text-3xl font-bold sm:text-4xl">{titulo}</h1>
-      {subtitulo && <p className="mt-2 text-muted-foreground">{subtitulo}</p>}
+
       {endereco && (
-        <p className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
+        <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
           <MapPin size={15} />
           {endereco}
         </p>
+      )}
+
+      {subtitulo && (
+        <p className="mt-2 text-muted-foreground">{subtitulo}</p>
       )}
 
       <p className="mt-5 rounded-xl border border-accent/50 bg-accent/15 p-3 text-sm">
@@ -56,10 +58,11 @@ export function MenuBrowser({
           <button
             key={c}
             onClick={() => setAtiva(c)}
-            className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${c === ativa
+            className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+              c === ativa
                 ? "border-transparent bg-primary text-primary-foreground"
                 : "border-border text-muted-foreground hover:bg-secondary"
-              }`}
+            }`}
           >
             {c} ({(menu[c] ?? []).length})
           </button>
@@ -74,32 +77,45 @@ export function MenuBrowser({
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {itens.map((i) => (
-          <article key={i.nome} className="flex flex-col justify-between p-5 surface-card">
+          <article
+            key={i.nome}
+            className="flex flex-col justify-between p-5 surface-card"
+          >
             <div>
               <h3 className="text-base font-bold leading-snug">{i.nome}</h3>
-              {i.obs && <p className="mt-1 text-sm text-muted-foreground">{i.obs}</p>}
+
+              {i.obs && (
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {i.obs}
+                </p>
+              )}
             </div>
+
             <div className="mt-4 flex items-center justify-between gap-3">
               <div>
                 <span className="text-lg font-bold text-primary">
                   {brl(i.preco)}
+
                   {precificacao && (
                     <span className="ml-1 text-sm font-semibold text-foreground">
                       {precificacao.sufixo}
                     </span>
                   )}
                 </span>
+
                 {precificacao && (
                   <span className="block text-xs font-medium text-muted-foreground">
                     Consulte valores para outras quantidades
                   </span>
                 )}
+
                 {categoriaEntrega && (
                   <span className="block text-xs font-medium text-muted-foreground">
                     + taxa de entrega
                   </span>
                 )}
               </div>
+
               {categoriaEntrega ? (
                 <button
                   onClick={() => {
@@ -122,10 +138,10 @@ export function MenuBrowser({
                 </span>
               )}
             </div>
-
           </article>
         ))}
       </div>
     </div>
   );
 }
+
